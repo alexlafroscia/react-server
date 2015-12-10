@@ -5,11 +5,32 @@ import { renderToString } from 'react-dom/server';
 import { match, RoutingContext } from 'react-router';
 import routes from '../src/routes';
 
+// Webpack
+import webpack from 'webpack';
+import config from '../webpack.config';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+
+// Set up templating engine
 const app = express();
 app.set('views', __dirname);
 app.engine('.hbs', expHbs({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
 
+// In development, serve Webpack-built assets
+if (process.env.NODE_ENV === 'development') {
+  const compiler = webpack(config);
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: false,
+    publicPath: config.output.publicPath,
+    stats: { colors: true }
+  }));
+  app.use(webpackHotMiddleware(compiler, {
+    log: console.log
+  }));
+}
+
+// Server-render React code
 app.use(function(req, res ) {
   match({ routes, location: req.url }, (error, redirectLocation, props) => {
     if (error) {
