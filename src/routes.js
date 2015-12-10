@@ -1,11 +1,13 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { IndexRoute, Route } from 'react-router';
 
-import Main from './handlers/main';
+import Application from './handlers/application';
+import HomePage from './handlers/homepage';
 import Example from './handlers/example';
 
 export default (
-  <Route path='/' component={Main}>
+  <Route path='/' name='home' component={Application}>
+    <IndexRoute component={HomePage} />
     <Route path='/example' name='example' component={Example} />
   </Route>
 );
