@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "NODE_ENV=development babel-node server/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build:server && npm run build:html && npm run build:js",
+    "build:server": "babel src --out-dir dist",
+    "build:js": "webpack -p --config config/webpack.production.config.js",
+    "build:html": "cp src/index.hbs dist/index.hbs",
+    "dev": "NODE_ENV=development babel-node src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=production node dist/server.js"
   },
   "author": "",
   "license": "ISC",

@@ -1,13 +1,14 @@
+import { join } from 'path';
 import express from 'express';
 import expHbs from 'express-handlebars';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RoutingContext } from 'react-router';
-import routes from '../src/routes';
+import routes from './routes';
 
 // Webpack
 import webpack from 'webpack';
-import config from '../webpack.config';
+import config from '../config/webpack.development.config';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
@@ -28,6 +29,8 @@ if (process.env.NODE_ENV === 'development') {
   app.use(webpackHotMiddleware(compiler, {
     log: console.log
   }));
+} else {
+  app.use('/assets', express.static(join(__dirname, '/assets')));
 }
 
 // Server-render React code

@@ -1,8 +1,9 @@
 'use strict';
 
-var webpack = require('webpack'),
-  path = require('path'),
-  srcPath = path.join(__dirname, 'src');
+var webpack = require('webpack');
+var path = require('path');
+var srcPath = path.resolve(__dirname, '..', 'src');
+var buildPath = path.resolve(__dirname, '..', 'dist/assets');
 
 module.exports = {
   target: 'web',
@@ -10,8 +11,6 @@ module.exports = {
   debug: true,
   devtool: 'eval-cheap-module-souce-map',
   entry: [
-    'webpack/hot/dev-server',
-    'webpack-hot-middleware/client',
     path.join(srcPath, 'module.js')
   ],
   resolve: {
@@ -20,8 +19,7 @@ module.exports = {
     modulesDirectories: ['node_modules', 'src']
   },
   output: {
-    path: '/',
-    publicPath: '/assets/',
+    path: buildPath,
     filename: 'bundle.js'
   },
   module: {
@@ -40,7 +38,6 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ]
 };
