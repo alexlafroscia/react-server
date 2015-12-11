@@ -1,0 +1,10 @@
+# Docker stuff that we don't need to copy
+Dockerfile
+.dockerignore
+
+# Dependencies
+node_modules/
+
+# Local-only files
+.git/
+dist/
