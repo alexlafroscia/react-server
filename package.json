@@ -11,7 +11,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production node dist/server.js"
   },
-  "author": "",
+  "author": {
+    "name": "Alex LaFroscia",
+    "email": "alex@lafroscia.com",
+    "url": "http://alexlafroscia.com"
+  },
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.3.0",
